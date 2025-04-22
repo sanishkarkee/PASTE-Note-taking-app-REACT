@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 const Home = () => {
@@ -10,12 +12,38 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pasteId = searchParams.get('pasteId');
 
+  const dispatch = useDispatch();
+
+  const createPaste = () => {
+    // User entered data lai structured way ma store garera REDUCER FUNC/SLICE ma pathauna create gareko ho
+    const paste = {
+      title: title,
+      content: value,
+      _id: pasteId || Date.now().toString(36),
+      createdAt: new Date.toISOString(),
+    };
+
+    // Storing data to localstorage
+    if (pasteId) {
+      //Update
+      dispatch(updateToPastes(paste));
+    } else {
+      //Create
+
+      title.trim().length < 1 || value.trim().length < 1
+        ? toast.error('Field should not be empty')
+        : dispatch(addToPastes(paste));
+    }
+
+    // After CREATING-UPDATING paste, we should clear the input fields
+    setTitle('');
+    setValue('');
+    setSearchParams('');
+  };
+
   return (
-    <div className='w-[30rem]'>
-      <div
-        className='flex items-center gap-4
-    '
-      >
+    <div>
+      <div className='flex items-center gap-4'>
         <input
           className=' w-[80%] p-3 rounded-lg text-white'
           type='text'
@@ -29,6 +57,7 @@ const Home = () => {
         {/* Button name  routing path anusar set garne for update,edit,delete .*/}
         <button
           className={`w-[20%] p-2 ${pasteId ? 'bg-blue-500' : 'bg-green-500'}`}
+          onClick={createPaste}
         >
           {pasteId ? 'Update' : 'Create'}
         </button>
