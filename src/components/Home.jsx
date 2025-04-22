@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { addToPastes } from '../redux/pasteSlice';
+import { updateToPastes } from '../redux/pasteSlice';
 
 const Home = () => {
   const [title, setTitle] = useState('');
@@ -20,7 +22,7 @@ const Home = () => {
       title: title,
       content: value,
       _id: pasteId || Date.now().toString(36),
-      createdAt: new Date.toISOString(),
+      createdAt: new Date().toISOString(),
     };
 
     // Storing data to localstorage
@@ -31,7 +33,7 @@ const Home = () => {
       //Create
 
       title.trim().length < 1 || value.trim().length < 1
-        ? toast.error('Field should not be empty')
+        ? toast.error('Fields should not be empty.')
         : dispatch(addToPastes(paste));
     }
 
