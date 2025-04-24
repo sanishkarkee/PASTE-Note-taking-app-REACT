@@ -75,17 +75,19 @@ export const pasteSlice = createSlice({
     2. (Where is this paste stored?): inside the state.pastes array
     3. (How do I remove it?): Use filter() to create a new array excluding the paste that matches the given _id.
     */
+    //  Yo reducer funtion le chai id  dispatch bata get garxa
     removeFromPastes: (state, action) => {
       const idToRemove = action.payload;
+      console.log('Deleting ID:', action.payload);
 
       // id namilne array matra rakhera naya array banauxa
       const newUpdatedArray = state.pastes.filter((individualArrayData) => {
-        individualArrayData._id !== idToRemove._id;
+        return individualArrayData._id !== idToRemove;
       });
 
       state.pastes = newUpdatedArray;
       localStorage.setItem('pastes', JSON.stringify(state.pastes));
-      toast.success('Paste Deleted', (duration = 3000));
+      toast.success('Paste Deleted', 3000);
     },
   },
 });
