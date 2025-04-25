@@ -5,6 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromPastes } from '../redux/pasteSlice';
 import toast from 'react-hot-toast';
 import { NavLink } from 'react-router-dom';
+import { CiEdit } from 'react-icons/ci';
+import { RiDeleteBinLine } from 'react-icons/ri';
+import { RxShare2 } from 'react-icons/rx';
+import { AiOutlineEye } from 'react-icons/ai';
+import { BsCopy } from 'react-icons/bs';
 
 const Paste = () => {
   /*
@@ -19,7 +24,7 @@ const Paste = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const pastes = useSelector((state) => state.paste.pastes);
-  console.log(pastes);
+  // console.log(pastes);
 
   const dispatch = useDispatch();
 
@@ -78,17 +83,7 @@ const Paste = () => {
                       to={`/?pasteId=${allFilteredData?._id}`}
                       className='text-white'
                     >
-                      Edit
-                    </NavLink>
-                  </button>
-
-                  {/* VIEW: yo garda chai 'ViewPaste' khulnu parxa */}
-                  <button>
-                    <NavLink
-                      className='text-white'
-                      to={`/pastes/${allFilteredData?._id}`}
-                    >
-                      View
+                      <CiEdit />
                     </NavLink>
                   </button>
 
@@ -98,7 +93,22 @@ const Paste = () => {
                       handleDelete(allFilteredData?._id);
                     }}
                   >
-                    Delete
+                    <RiDeleteBinLine />
+                  </button>
+
+                  {/* SHARE: (tutor gave this as homework) */}
+                  <button>
+                    <RxShare2 />
+                  </button>
+
+                  {/* VIEW: yo garda chai 'ViewPaste' khulnu parxa */}
+                  <button>
+                    <NavLink
+                      className='text-white'
+                      to={`/pastes/${allFilteredData?._id}`}
+                    >
+                      <AiOutlineEye />
+                    </NavLink>
                   </button>
 
                   {/* COPY: navigator.clipboard.writeText(text to copy) */}
@@ -108,11 +118,8 @@ const Paste = () => {
                       toast.success('Copied to clipboard');
                     }}
                   >
-                    Copy
+                    <BsCopy />
                   </button>
-
-                  {/* SHARE: (tutor gave this as homework) */}
-                  <button>share</button>
                 </div>
 
                 {/* Formatted Date */}
