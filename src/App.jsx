@@ -33,12 +33,21 @@ const router = createBrowserRouter([
       </div>
     ),
   },
+  // for SHARE button
+  {
+    path: '/view/:id',
+    element: (
+      <div>
+        <ViewPaste />
+      </div>
+    ),
+  },
 ]);
 
 function App() {
   return (
     <>
-      <div className='w-[30rem]'>
+      <div className='w-[50rem]'>
         <RouterProvider router={router} />
       </div>
     </>

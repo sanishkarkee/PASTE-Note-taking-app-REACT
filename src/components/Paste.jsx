@@ -49,14 +49,18 @@ const Paste = () => {
   return (
     <div>
       <input
-        className='p-3 w-full rounded-lg mb-3'
+        className='p-2 w-full rounded-md mb-3 bg-gray-600'
         type='search'
         placeholder='Search here'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-4 border border-white p-2'>
+        <h2 className='text-white text-start font-extrabold text-2xl '>
+          All pastes
+        </h2>
+
         {filteredData.length > 0 &&
           filteredData.map((allFilteredData, allFilteredDataIndex) => {
             //Making Date format more beautiful
@@ -71,59 +75,79 @@ const Paste = () => {
 
             return (
               <div
-                className='border border-pink-300 p-2 rounded-lg'
+                className='border border-white p-2 rounded-md flex'
                 key={allFilteredDataIndex}
               >
-                <div>{allFilteredData.title}</div>
-                <div>{allFilteredData.content}</div>
-                <div className='flex justify-evenly'>
-                  {/* EDIT: edit garda chai home page khulnu parxa so '/' */}
-                  <button>
-                    <NavLink
-                      to={`/?pasteId=${allFilteredData?._id}`}
-                      className='text-white'
-                    >
-                      <CiEdit />
-                    </NavLink>
-                  </button>
-
-                  {/* DELETE */}
-                  <button
-                    onClick={() => {
-                      handleDelete(allFilteredData?._id);
-                    }}
-                  >
-                    <RiDeleteBinLine />
-                  </button>
-
-                  {/* SHARE: (tutor gave this as homework) */}
-                  <button>
-                    <RxShare2 />
-                  </button>
-
-                  {/* VIEW: yo garda chai 'ViewPaste' khulnu parxa */}
-                  <button>
-                    <NavLink
-                      className='text-white'
-                      to={`/pastes/${allFilteredData?._id}`}
-                    >
-                      <AiOutlineEye />
-                    </NavLink>
-                  </button>
-
-                  {/* COPY: navigator.clipboard.writeText(text to copy) */}
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(allFilteredData?.content);
-                      toast.success('Copied to clipboard');
-                    }}
-                  >
-                    <BsCopy />
-                  </button>
+                <div className='w-[26rem]  rounded-md text-start p-2'>
+                  <div className=' overflow-x-auto text-green-300 wrap-break-word'>
+                    {allFilteredData.title}
+                  </div>
+                  <div className='h-[80px] overflow-y-auto break-normal'>
+                    {allFilteredData.content}
+                  </div>
                 </div>
 
-                {/* Formatted Date */}
-                <div>{formattedDate}</div>
+                <div className=' pl-[10px] py-[20px]'>
+                  <div className='flex gap-2 mb-4'>
+                    {/* EDIT: edit garda chai home page khulnu parxa so '/' */}
+                    <button>
+                      <NavLink
+                        to={`/?pasteId=${allFilteredData?._id}`}
+                        className='text-white'
+                      >
+                        <CiEdit />
+                      </NavLink>
+                    </button>
+
+                    {/* DELETE */}
+                    <button
+                      onClick={() => {
+                        handleDelete(allFilteredData?._id);
+                      }}
+                    >
+                      <RiDeleteBinLine />
+                    </button>
+
+                    {/* SHARE: (tutor gave this as homework) */}
+                    <button
+                      onClick={() => {
+                        const shareURL = `${window.location.origin}/view/${allFilteredData?._id}`;
+                        navigator.clipboard.writeText(shareURL);
+                        toast.success('Link copied for sharing!!!');
+                      }}
+                    >
+                      <RxShare2 />
+                    </button>
+
+                    {/* VIEW: yo garda chai 'ViewPaste' khulnu parxa */}
+                    <button>
+                      <NavLink
+                        className='text-white'
+                        to={`/pastes/${allFilteredData?._id}`}
+                      >
+                        <AiOutlineEye />
+                      </NavLink>
+                    </button>
+
+                    {/* COPY: navigator.clipboard.writeText(text to copy) */}
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(allFilteredData?.content);
+                        toast.success('Copied to clipboard');
+                      }}
+                    >
+                      <BsCopy />
+                    </button>
+                  </div>
+
+                  {/* Formatted Date */}
+                  <div className='text-right text-xs'>
+                    Created at: &nbsp;
+                    <strong className='text-green-500 text-base'>
+                      {formattedDate}
+                    </strong>
+                  </div>
+                </div>
               </div>
             );
           })}
