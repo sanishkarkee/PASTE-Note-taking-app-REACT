@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { addToPastes } from '../redux/pasteSlice';
 import { updateToPastes } from '../redux/pasteSlice';
@@ -12,9 +12,27 @@ const Home = () => {
   const [value, setValue] = useState('');
 
   const [searchParams, setSearchParams] = useSearchParams();
+
   const pasteId = searchParams.get('pasteId');
+  // console.log(pasteId); //Eg o/p:  1234
 
   const dispatch = useDispatch();
+
+  // Importing all the pastes data
+  const allPastes = useSelector((state) => state.paste.pastes);
+
+  // For the update action
+  useEffect(() => {
+    console.log('Inside useEffect Hook');
+    if (pasteId) {
+      const specificPaste = allPastes.find((allArrayPasteData) => {
+        return allArrayPasteData?._id === pasteId;
+      });
+      console.log('Page Found');
+      setTitle(specificPaste?.title);
+      setValue(specificPaste?.content);
+    }
+  }, [pasteId]);
 
   const createPaste = () => {
     // User entered data lai structured way ma store garera REDUCER FUNC/SLICE ma pathauna create gareko ho

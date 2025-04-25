@@ -51,7 +51,7 @@ export const pasteSlice = createSlice({
       #     */
 
       const index = state.pastes.findIndex((individualArrayItem) => {
-        individualArrayItem._id === updatedPaste._id;
+        return individualArrayItem._id === updatedPaste._id;
       });
 
       // 2. If index of the paste is found then, replacing the old ata with the new one in the selected Index
