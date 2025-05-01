@@ -6,7 +6,7 @@ import { addToPastes } from '../redux/pasteSlice';
 import { updateToPastes } from '../redux/pasteSlice';
 
 const Home = () => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(' ');
 
   //   for textarea content
   const [value, setValue] = useState('');
