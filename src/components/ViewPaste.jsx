@@ -9,13 +9,7 @@ const ViewPaste = () => {
 
   const allPastes = useSelector((state) => state.paste.pastes);
 
-  // all pastes haru madhya specific paste select garne mathi search param bata   aayeko id ko paste nikalne (filter(): choose first array OR use find() )
 
-  // const selectedPaste = allPastes.filter((allPasteObjectData) => {
-  //   return allPasteObjectData?._id === id;
-  // })[0];
-
-  // OR
 
   const selectedPaste = allPastes.find((allPasteObjectData) => {
     return allPasteObjectData?._id === id;

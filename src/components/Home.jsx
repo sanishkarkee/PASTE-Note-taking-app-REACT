@@ -8,13 +8,13 @@ import { updateToPastes } from '../redux/pasteSlice';
 const Home = () => {
   const [title, setTitle] = useState(' ');
 
-  //   for textarea content
+
   const [value, setValue] = useState('');
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pasteId = searchParams.get('pasteId');
-  // console.log(pasteId); //Eg o/p:  1234
+
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,6 @@ const Home = () => {
   }, [pasteId]);
 
   const createPaste = () => {
-    // User entered data lai structured way ma store garera REDUCER FUNC/SLICE ma pathauna create gareko ho
     const paste = {
       title: title,
       content: value,
@@ -55,7 +54,7 @@ const Home = () => {
         : dispatch(addToPastes(paste));
     }
 
-    // After CREATING-UPDATING paste, we should clear the input fields
+  
     setTitle('');
     setValue('');
     setSearchParams('');

@@ -12,28 +12,11 @@ import { AiOutlineEye } from 'react-icons/ai';
 import { BsCopy } from 'react-icons/bs';
 
 const Paste = () => {
-  /*
-  # state→  refers to the whole Redux state
-  # state.paste→  refers to the paste slice you named in store.js
-  # state.paste.pastes→ is the actual array you're working with in your app
-  # Redux doesn’t "guess" which file to use. YOU told Redux what goes where:
-    - In store.js, you connected pasteReducer to the key 'paste'.
-    - That’s why 'state.paste' maps directly to the data in pasteSlice.js.
-  */
-
   const [searchTerm, setSearchTerm] = useState('');
 
   const pastes = useSelector((state) => state.paste.pastes);
-  // console.log(pastes);
 
   const dispatch = useDispatch();
-
-  // Filter/Search functionality
-  // const filteredData = pastes.filter((individualArrayData) =>
-  //   individualArrayData.title.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
-  // OR
 
   // Filter/Search functionality
   const filteredData = pastes.filter((individualArrayData) => {
@@ -89,7 +72,7 @@ const Paste = () => {
 
                 <div className=' pl-[10px] py-[20px]'>
                   <div className='flex gap-2 mb-4'>
-                    {/* EDIT: edit garda chai home page khulnu parxa so '/' */}
+                    {/* EDIT */}
                     <button>
                       <NavLink
                         to={`/?pasteId=${allFilteredData?._id}`}
@@ -108,7 +91,7 @@ const Paste = () => {
                       <RiDeleteBinLine />
                     </button>
 
-                    {/* SHARE: (tutor gave this as homework) */}
+                    {/* SHARE:  */}
                     <button
                       onClick={() => {
                         const shareURL = `${window.location.origin}/view/${allFilteredData?._id}`;
@@ -119,7 +102,7 @@ const Paste = () => {
                       <RxShare2 />
                     </button>
 
-                    {/* VIEW: yo garda chai 'ViewPaste' khulnu parxa */}
+                    {/* VIEW: */}
                     <button>
                       <NavLink
                         className='text-white'
@@ -129,7 +112,7 @@ const Paste = () => {
                       </NavLink>
                     </button>
 
-                    {/* COPY: navigator.clipboard.writeText(text to copy) */}
+                    {/* COPY: */}
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(allFilteredData?.content);
