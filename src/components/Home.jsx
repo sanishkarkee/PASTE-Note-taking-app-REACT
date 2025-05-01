@@ -21,7 +21,7 @@ const Home = () => {
   // Importing all the pastes data
   const allPastes = useSelector((state) => state.paste.pastes);
 
-  // For the update action
+  // For the update action //
   useEffect(() => {
     console.log('Inside useEffect Hook');
     if (pasteId) {
